@@ -25,7 +25,6 @@ public class SumOperation extends Operation {
 			operationDTO.setExtraUnity(String.valueOf(valueUnity.charAt(valueUnity.length() - 2)));
 			operationDTO.setUnity(String.valueOf(valueUnity.charAt(valueUnity.length() - 1)));	
 			operationDTO.setNextStep(OperationStep.DOZEN.name());	
-			System.out.println("===============\n" + operationDTO.getNextStep() + "\n===============");
 			log.info("Result is greater than 9 [unity: " + operationDTO.getUnity() + ", extraUnity: " + operationDTO.getExtraUnity() + "]");
 		} else {
 			operationDTO.setNextStep(OperationStep.DOZEN.name());
