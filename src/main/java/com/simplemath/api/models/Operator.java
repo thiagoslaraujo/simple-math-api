@@ -9,7 +9,7 @@ public class Operator {
 	private String value = null;
 	
 	public Operator(int value) {
-		this.value = String.valueOf(value).format("%03d", value);
+		this.value = String.format("%03d", value);
 	}
 	
 	public int getValue() {

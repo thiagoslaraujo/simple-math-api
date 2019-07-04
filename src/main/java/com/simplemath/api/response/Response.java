@@ -9,7 +9,7 @@ public class Response <T> {
 	private List<String> errors;
 	
 	public Response() {
-		this.errors = new ArrayList<String>();
+		this.errors = new ArrayList<>();
 	}
 
 	public T getData() {
