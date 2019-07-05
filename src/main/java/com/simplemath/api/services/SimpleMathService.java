@@ -29,17 +29,17 @@ public class SimpleMathService {
 		Response<OperationDTO> response = new Response<>();
 		
 		if(!validateOperation()) {
-			log.debug("Invalid operation: [" + this.dto.getOperationName().toUpperCase() + "]");
+			log.info("Invalid operation: [{}]", this.dto.getOperationName().toUpperCase());
 			response.getErrors().add("Invalid operation: [" + this.dto.getOperationName().toUpperCase() + "]. Operations are: " + Arrays.toString(OPERATIONS));
 		}
 		
 		if(!validateStep()) {
-			log.debug("Invalid step: [" + this.dto.getStep().toUpperCase() + "]");
+			log.info("Invalid step: [{}]", this.dto.getStep().toUpperCase());
 			response.getErrors().add("Invalid step: [" + this.dto.getStep().toUpperCase() + "]. Steps are: " + Arrays.toString(STEPS));
 		}
 		
 		if(validateOperation() && validateStep()) {
-			log.debug("Valid data: " + this.dto.toString());
+			log.info("Valid data: {}", this.dto.toString());
 			
 			String operation = this.dto.getOperationName();
 			String step = this.dto.getStep();
@@ -62,7 +62,7 @@ public class SimpleMathService {
 				response.getErrors().add("Ops, something went wrong!");
 			}
 			
-			log.debug("Operation result: " + response.getData());
+			log.info("Operation result: {}", response.getData());
 			
 		}
 		
