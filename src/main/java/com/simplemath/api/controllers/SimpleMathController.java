@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplemath.api.dtos.OperationDTO;
+import com.simplemath.api.response.Response;
 import com.simplemath.api.services.SimpleMathService;
 
 @RestController
@@ -20,7 +20,7 @@ import com.simplemath.api.services.SimpleMathService;
 @CrossOrigin(origins = "*")
 public class SimpleMathController {
 
-	private static Logger log = LoggerFactory.getLogger(SimpleMathController.class);
+	private static final Logger log = LoggerFactory.getLogger(SimpleMathController.class);
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	//@GetMapping(name = "/api/math")
@@ -40,11 +40,12 @@ public class SimpleMathController {
 			return response;
 			
 		} catch (IOException e) {
-			log.info("Error: %s", e.getMessage());
-            e.printStackTrace();
+			log.debug("Error: %s", e);
         }
 			
-		return null;
+		Response<OperationDTO> data = new Response<>();
+		data.getErrors().add("general.error");
+		return data.getErrors().toString();
 	}
 	
 }

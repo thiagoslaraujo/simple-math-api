@@ -17,7 +17,7 @@ public class SimpleMathService {
 	private static final String[] OPERATIONS = { OperationType.SUM.name(), OperationType.SUB.name(), OperationType.MUL.name(), OperationType.DIV.name() };
 	private static final String[] STEPS = { OperationStep.UNITY.name(), OperationStep.DOZEN.name(), OperationStep.HUNDRED.name() };
 
-	private static Logger log = LoggerFactory.getLogger(SimpleMathService.class);
+	private static final Logger log = LoggerFactory.getLogger(SimpleMathService.class);
 	
 	private OperationDTO dto = null;
 	

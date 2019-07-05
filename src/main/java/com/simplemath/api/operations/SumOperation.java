@@ -9,7 +9,7 @@ import com.simplemath.api.utils.OperationStep;
 
 public class SumOperation extends Operation {
 	
-	private final static Logger log = LoggerFactory.getLogger(SumOperation.class);
+	private static final Logger log = LoggerFactory.getLogger(SumOperation.class);
 
 	public SumOperation(OperationStep operationStep, Operator a, Operator b) {
 		super(operationStep, a, b);
