@@ -34,7 +34,7 @@ public class SimpleMathService {
 		}
 		
 		if(!validateStep()) {
-			log.debug("Invalid step: [{}]", this.dto.getStep().toUpperCase());
+			log.debug("Invalid step: [{}]", this.dto.getStep());
 			response.getErrors().add(String.format("Invalid step: [%s]. Steps are: %s", this.dto.getStep(), Arrays.toString(STEPS)));
 		}
 		

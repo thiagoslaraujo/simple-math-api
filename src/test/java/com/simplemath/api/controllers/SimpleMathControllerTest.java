@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,7 +32,7 @@ public class SimpleMathControllerTest {
 	private MockMvc mvc;
 	
 	@Test
-	public void testWithouA() throws Exception {
+	public void testWithoutA() throws Exception {
 		String operation = "SUM";
 		String step = "HUNDRED";
 		mvc.perform(MockMvcRequestBuilders.get(
@@ -40,7 +41,10 @@ public class SimpleMathControllerTest {
 				+ "&operation=" + operation
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("'a' parameter is missing.")));
 	}
 	
 	@Test
@@ -53,7 +57,10 @@ public class SimpleMathControllerTest {
 				+ "&operation=" + operation
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("'b' parameter is missing.")));
 	}
 	
 	@Test
@@ -65,7 +72,10 @@ public class SimpleMathControllerTest {
 				+ "?operation=" + operation
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("'a' parameter is missing.")));
 	}
 		
 	@Test
@@ -75,11 +85,14 @@ public class SimpleMathControllerTest {
 		mvc.perform(MockMvcRequestBuilders.get(
 				SimpleMathControllerTest.API 
 				+ "?a=" + step 
-				+ "b=" + SimpleMathControllerTest.B 
+				+ "&b=" + SimpleMathControllerTest.B 
 				+ "&operation=" + operation
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());	
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("Operator 'a' must be between 0 and 999")));	
 	}
 	
 	@Test
@@ -89,11 +102,14 @@ public class SimpleMathControllerTest {
 		mvc.perform(MockMvcRequestBuilders.get(
 				SimpleMathControllerTest.API 
 				+ "?a=" + SimpleMathControllerTest.A 
-				+ "b=" + operation
+				+ "&b=" + operation
 				+ "&operation=" + operation
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("Operator 'b' must be between 0 and 999")));
 	}
 	
 	@Test
@@ -103,11 +119,15 @@ public class SimpleMathControllerTest {
 		mvc.perform(MockMvcRequestBuilders.get(
 				SimpleMathControllerTest.API 
 				+ "?a=" + step 
-				+ "b=" + operation 
+				+ "&b=" + operation 
 				+ "&operation=" + operation
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(2)))
+		.andExpect(jsonPath("$.errors", hasItem("Operator 'a' must be between 0 and 999")))
+		.andExpect(jsonPath("$.errors", hasItem("Operator 'b' must be between 0 and 999")));
 	}
 	
 	@Test
@@ -116,10 +136,13 @@ public class SimpleMathControllerTest {
 		mvc.perform(MockMvcRequestBuilders.get(
 				SimpleMathControllerTest.API 
 				+ "?a=" + SimpleMathControllerTest.A 
-				+ "b=" + SimpleMathControllerTest.B
+				+ "&b=" + SimpleMathControllerTest.B
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("'operation' parameter is missing.")));
 	}
 	
 	@Test
@@ -128,25 +151,30 @@ public class SimpleMathControllerTest {
 		mvc.perform(MockMvcRequestBuilders.get(
 				SimpleMathControllerTest.API 
 				+ "?a=" + SimpleMathControllerTest.A 
-				+ "b=" + SimpleMathControllerTest.B
+				+ "&b=" + SimpleMathControllerTest.B
 				+ "&operation=" + step
 				+ "&step=" + step
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("Invalid operation: [" + step + "]. Operations are: [SUM, SUB, MUL, DIV]")));
 	}
 	
 	@Test
 	public void testWithErrorValueForStep() throws Exception {
 		String operation = "SUM";
-		String step = "HUNDRED";
 		mvc.perform(MockMvcRequestBuilders.get(
 				SimpleMathControllerTest.API 
-				+ "?a=" + step 
-				+ "b=" + operation 
+				+ "?a=" + SimpleMathControllerTest.A 
+				+ "&b=" + SimpleMathControllerTest.B
 				+ "&operation=" + operation
 				+ "&step=" + operation
 			).accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isBadRequest());
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors").isArray())
+		.andExpect(jsonPath("$.errors", hasSize(1)))
+		.andExpect(jsonPath("$.errors", hasItem("Invalid step: [" + operation + "]. Steps are: [UNITY, DOZEN, HUNDRED]")));
 	}
 	
 	@Test

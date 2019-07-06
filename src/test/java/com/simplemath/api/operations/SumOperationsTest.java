@@ -16,7 +16,7 @@ import com.simplemath.api.utils.OperationStep;
 @ActiveProfiles("test")
 public class SumOperationsTest {
 
-	private static final int A = 456;
+	private static final int A = 4568;
 	private static final int B = 999;
 	
 	@Test

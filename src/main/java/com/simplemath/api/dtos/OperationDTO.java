@@ -1,5 +1,10 @@
 package com.simplemath.api.dtos;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 public class OperationDTO {
 
@@ -25,6 +30,10 @@ public class OperationDTO {
 		this.step = step;
 	}
 
+	@NotNull(message = "Operator 'a' is needed")
+	@NotEmpty(message = "Operator 'a' cannot be empty")
+	@Range(min = 1, max = 999, message = "Operator 'a' must have length between 1 and 999")
+	@Length(min = 1, max = 3, message = "Operator 'a' must have length between 1 and 999")
 	public String getA() {
 		return a;
 	}
@@ -33,6 +42,10 @@ public class OperationDTO {
 		this.a = a;
 	}
 
+	@NotNull(message = "Operator 'b' is needed")
+	@NotEmpty(message = "Operator 'b' cannot be empty")
+	@Range(min = 1, max = 999, message = "Operator 'b' must have length between 1 and 999")
+	@Length(min = 1, max = 3, message = "Operator 'b' must have length between 1 and 3")
 	public String getB() {
 		return b;
 	}
@@ -41,6 +54,9 @@ public class OperationDTO {
 		this.b = b;
 	}
 
+	@NotNull(message = "Operation name is needed")
+	@NotEmpty(message = "Operatorion name cannot be empty")
+	@Length(min = 3, max = 3, message = "Operatorion name must have length equals 3")
 	public String getOperationName() {
 		return operationName;
 	}
@@ -49,6 +65,8 @@ public class OperationDTO {
 		this.operationName = operationName;
 	}
 
+	@NotNull(message = "Step is needed")
+	@NotEmpty(message = "Step cannot be empty")
 	public String getStep() {
 		return step;
 	}
