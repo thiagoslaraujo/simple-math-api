@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simplemath.api.annotations.OperationStep;
+import com.simplemath.api.annotations.OperationType;
 import com.simplemath.api.dtos.OperationDTO;
 import com.simplemath.api.response.Response;
 import com.simplemath.api.services.SimpleMathService;
@@ -31,7 +33,9 @@ public class SimpleMathController {
 			String b, 
 			@RequestParam(name = "operation", required = true) 
 			@NotEmpty(message = "Operation name cannot be empty") 
+			@OperationType
 			String operation,
+			@OperationStep
 			@RequestParam(name="step", defaultValue = "UNITY") String step
 			){
 		

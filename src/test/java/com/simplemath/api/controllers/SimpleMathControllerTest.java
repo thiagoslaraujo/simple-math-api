@@ -157,7 +157,7 @@ public class SimpleMathControllerTest {
 		.andExpect(status().isBadRequest())
 		.andExpect(jsonPath("$.errors").isArray())
 		.andExpect(jsonPath("$.errors", hasSize(1)))
-		.andExpect(jsonPath("$.errors", hasItem("Invalid operation: [" + step + "]. Operations are: [SUM, SUB, MUL, DIV]")));
+		.andExpect(jsonPath("$.errors", hasItem("Invalid operation. Operations are: [SUM, SUB, MUL, DIV]")));
 	}
 	
 	@Test
@@ -173,7 +173,7 @@ public class SimpleMathControllerTest {
 		.andExpect(status().isBadRequest())
 		.andExpect(jsonPath("$.errors").isArray())
 		.andExpect(jsonPath("$.errors", hasSize(1)))
-		.andExpect(jsonPath("$.errors", hasItem("Invalid step: [" + operation + "]. Steps are: [UNITY, DOZEN, HUNDRED]")));
+		.andExpect(jsonPath("$.errors", hasItem("Invalid step. Steps are: [UNITY, DOZEN, HUNDRED]")));
 	}
 	
 	@Test
