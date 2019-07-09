@@ -18,7 +18,7 @@ public class MultiplicationOperation extends Operation {
 	
 	protected OperationDTO executeUnityStep() {
 		int resultUnity = Integer.parseInt(this.a.getUnity()) * Integer.parseInt(this.b.getUnity());
-		log.debug("Unity Step: {} + {} = {}", Integer.parseInt(this.a.getUnity()), Integer.parseInt(this.b.getUnity()), resultUnity);
+		log.debug("Unity Step: {} * {} = {}", Integer.parseInt(this.a.getUnity()), Integer.parseInt(this.b.getUnity()), resultUnity);
 		
 		if(resultUnity > 9) {
 			String valueUnity = String.valueOf(resultUnity);
@@ -42,7 +42,7 @@ public class MultiplicationOperation extends Operation {
 		if(operationDTO.getExtraUnity() != null) {
 			result = result + Integer.parseInt(operationDTO.getExtraUnity()); 
 		}	
-		log.debug("Dozen Step: {} + {} + [extraUnity: {}] = {}", Integer.parseInt(this.a.getDozen()), Integer.parseInt(this.b.getDozen()), operationDTO.getExtraUnity(), result);
+		log.debug("Dozen Step: {} * {} + [extraUnity: {}] = {}", Integer.parseInt(this.a.getDozen()), Integer.parseInt(this.b.getDozen()), operationDTO.getExtraUnity(), result);
 		
 		if(result > 9) {
 			String value = String.valueOf(result);
@@ -66,7 +66,7 @@ public class MultiplicationOperation extends Operation {
 		if(operationDTO.getExtraDozen() != null) {
 			result = result + Integer.parseInt(operationDTO.getExtraDozen()); 
 		}	
-		log.debug("Hundred Step: {} + {} + [extraDozen: {}] = {}", Integer.parseInt(this.a.getHundred()), Integer.parseInt(this.b.getHundred()), operationDTO.getExtraDozen(),  result);
+		log.debug("Hundred Step: {} * {} + [extraDozen: {}] = {}", Integer.parseInt(this.a.getHundred()), Integer.parseInt(this.b.getHundred()), operationDTO.getExtraDozen(),  result);
 		
 		if(result > 9) {
 			String value = String.valueOf(result);
