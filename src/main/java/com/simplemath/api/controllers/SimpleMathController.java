@@ -36,7 +36,8 @@ public class SimpleMathController {
 			@OperationType
 			String operation,
 			@OperationStep
-			@RequestParam(name="step", defaultValue = "UNITY") String step
+			@RequestParam(name="step", defaultValue = "UNITY") 
+			String step
 			){
 		
 		OperationDTO request = new OperationDTO(a, b, operation, step);		

@@ -46,6 +46,18 @@ public class SimpleMathServiceTest {
 	}
 	
 	@Test
+	public void testNullOperation() {
+		OperationDTO dto = new OperationDTO();
+		dto.setA(String.valueOf(SimpleMathServiceTest.A));
+		dto.setB(String.valueOf(SimpleMathServiceTest.B));
+		dto.setOperationName(null);
+		dto.setStep(OperationStep.UNITY.name());
+		
+		SimpleMathService service = new SimpleMathService(dto);
+		assertNotNull(service.execute().getErrors().get(0).startsWith("Invalid operation"));
+	}
+	
+	@Test
 	public void testValidStep() {
 		OperationDTO dto = new OperationDTO();
 		dto.setA(String.valueOf(SimpleMathServiceTest.A));
@@ -64,6 +76,18 @@ public class SimpleMathServiceTest {
 		dto.setB(String.valueOf(SimpleMathServiceTest.B));
 		dto.setOperationName(OperationType.SUM.name());
 		dto.setStep("asdads");
+		
+		SimpleMathService service = new SimpleMathService(dto);
+		assertNotNull(service.execute().getErrors().get(0).startsWith("Invalid step"));
+	}
+	
+	@Test
+	public void testNullStep() {
+		OperationDTO dto = new OperationDTO();
+		dto.setA(String.valueOf(SimpleMathServiceTest.A));
+		dto.setB(String.valueOf(SimpleMathServiceTest.B));
+		dto.setOperationName(OperationType.SUM.name());
+		dto.setStep(null);
 		
 		SimpleMathService service = new SimpleMathService(dto);
 		assertNotNull(service.execute().getErrors().get(0).startsWith("Invalid step"));

@@ -70,10 +70,16 @@ public class SimpleMathService {
 	}
 	
 	public boolean validateOperation() {
+		if(this.dto.getOperationName() == null || this.dto.getOperationName().equals("")) {
+			return false;
+		}
 		return Arrays.asList(OPERATIONS).contains(this.dto.getOperationName().toUpperCase());
 	}
 	
 	public boolean validateStep() {
+		if(this.dto.getStep() == null || this.dto.getStep().equals("")) {
+			return false;
+		}
 		return Arrays.asList(STEPS).contains(this.dto.getStep().toUpperCase());
 	}
 	
