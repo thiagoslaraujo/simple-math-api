@@ -117,4 +117,28 @@ public class SimpleMathServiceTest {
 		assertNotNull(service.execute().getErrors());
 	}
 	
+	@Test
+	public void testCallSum() {
+		OperationDTO dto = new OperationDTO();
+		dto.setA(String.valueOf(SimpleMathServiceTest.A));
+		dto.setB(String.valueOf(SimpleMathServiceTest.B));
+		dto.setOperationName(OperationType.SUM.name());
+		dto.setStep(OperationStep.HUNDRED.name());
+		
+		SimpleMathService service = new SimpleMathService(dto);
+		assertEquals(OperationType.SUM.name(), service.execute().getData().getOperationName());
+	}
+	
+	@Test
+	public void testCallMultiplication() {
+		OperationDTO dto = new OperationDTO();
+		dto.setA(String.valueOf(SimpleMathServiceTest.A));
+		dto.setB(String.valueOf(SimpleMathServiceTest.B));
+		dto.setOperationName(OperationType.MUL.name());
+		dto.setStep(OperationStep.HUNDRED.name());
+		
+		SimpleMathService service = new SimpleMathService(dto);
+		assertEquals(OperationType.MUL.name(), service.execute().getData().getOperationName());
+	}
+	
 }

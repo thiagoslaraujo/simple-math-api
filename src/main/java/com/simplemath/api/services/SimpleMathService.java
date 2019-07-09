@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.simplemath.api.dtos.OperationDTO;
 import com.simplemath.api.models.Operator;
+import com.simplemath.api.operations.MultiplicationOperation;
 import com.simplemath.api.operations.SumOperation;
 import com.simplemath.api.response.Response;
 import com.simplemath.api.utils.OperationStep;
@@ -53,7 +54,7 @@ public class SimpleMathService {
 				response.setData(new SumOperation(OperationStep.valueOf(step),a,b).execute());
 			
 			} else if(operation.equalsIgnoreCase(OperationType.MUL.name())) {
-				response.setData(new SumOperation(OperationStep.valueOf(step),a,b).execute());
+				response.setData(new MultiplicationOperation(OperationStep.valueOf(step),a,b).execute());
 			
 			} else if(operation.equalsIgnoreCase(OperationType.DIV.name())) {
 				response.setData(new SumOperation(OperationStep.valueOf(step),a,b).execute());
